@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Marcas Exclusivas — Estrutura</title>
+    <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="icons/logo.png" alt="OroLeite" />
+        <div class="subtitle">Oroleite<br />Logística & Distribuição</div>
+      </div>
+
+      <nav>
+        <a href="index.html" data-page="index">Início</a>
+        <a href="produtos.html" data-page="produtos">Produtos</a>
+        <a href="marcas.html" data-page="marcas">Marcas</a>
+        <a
+          href="contato.html"
+          data-page="contato"
+          class="active"
+          aria-current="page"
+          >Contato</a
+        >
+        <a href="login.html" id="loginLink" data-page="login">Entrar</a>
+        <a href="account.html" id="accountLink" data-page="account"
+          >Minha Conta</a
+        >
+      </nav>
+
+      <div class="search">
+        <input
+          id="searchInput"
+          placeholder="Procurar marca ou produto"
+          aria-label="Busca"
+        />
+        <button id="openFilterBtn">Filtrar</button>
+      </div>
+
+      <!-- menu móvel (aparece em telas pequenas) -->
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <div id="mobileMenu" class="mobile-menu" aria-hidden="true"></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <h2>Fale Conosco</h2>
+          <p>Entre em contato para solicitar orçamentos ou tirar dúvidas.</p>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <!-- Envia via FormSubmit; substitui o email pelo seu destino -->
+        <form
+          class="contact-form"
+          action="https://formsubmit.co/markinhos.v.r@gmail.com"
+          method="POST"
+        >
+          <input
+            type="hidden"
+            name="_subject"
+            value="Novo contato do site - OroLeite"
+          />
+          <input type="hidden" name="_next" value="/index.html" />
+          <input type="hidden" name="_captcha" value="false" />
+
+          <label>
+            <span class="label-title">Nome</span>
+            <input type="text" name="nome" required />
+          </label>
+
+          <label>
+            <span class="label-title">Email</span>
+            <input type="email" name="email" required />
+          </label>
+
+          <label>
+            <span class="label-title">Mensagem</span>
+            <textarea name="mensagem" rows="6" required></textarea>
+          </label>
+
+          <div>
+            <button type="submit" class="btn-main">Enviar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Meios de contato (WhatsApp / Instagram / Facebook) -->
+      <section class="contact-info">
+        <h3>Outros meios de contato</h3>
+        <div class="contact-cards">
+          <a
+            href="https://wa.me/+5548920014757"
+            class="contact-card wa"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="icon">📱</div>
+            <strong>WhatsApp</strong>
+          </a>
+
+          <a
+            href="https://instagram.com/markinhosgauchoinstalacoes"
+            class="contact-card ig"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="icon">📸</div>
+            <strong>Instagram</strong>
+          </a>
+
+          <a
+            href="https://facebook.com/markinhosgauchoinstalacoessc"
+            class="contact-card fb"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div class="icon">👍</div>
+            <strong>Facebook</strong>
+          </a>
+        </div>
+        <p class="contact-thanks">Obrigado pela atenção!</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        © <span id="year"></span> OroLeite - Logística & Distribuição
+      </div>
+    </footer>
+  </body>
+</html>

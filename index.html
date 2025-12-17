@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Marcas Exclusivas — Estrutura</title>
+    <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="icons/logo.png" alt="OroLeite" />
+        <div class="subtitle">Oroleite<br />Logística & Distribuição</div>
+      </div>
+
+      <nav>
+        <a href="index.html" data-page="index">Início</a>
+        <a href="produtos.html" data-page="produtos">Produtos</a>
+        <a href="marcas.html" data-page="marcas">Marcas</a>
+        <a href="contato.html" data-page="contato">Contato</a>
+        <a href="login.html" id="loginLink" data-page="login">Entrar</a>
+        <a href="account.html" id="accountLink" data-page="account"
+          >Minha Conta</a
+        >
+      </nav>
+
+      <div class="search">
+        <input
+          id="searchInput"
+          placeholder="Procurar marca ou produto"
+          aria-label="Busca"
+        />
+        <button id="openFilterBtn">Filtrar</button>
+      </div>
+
+      <!-- menu móvel (aparece em telas pequenas) -->
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <div id="mobileMenu" class="mobile-menu" aria-hidden="true"></div>
+    </header>
+
+    <section class="carousel-container">
+      <div class="carousel-track">
+        <div class="carousel-slide">
+          <img src="./icons/bauduccobanner.jpg" alt="Banner 1" />
+        </div>
+        <div class="carousel-slide">
+          <img src="./icons/peccinbanner.jpg" alt="Banner 2" />
+        </div>
+        <div class="carousel-slide">
+          <img src="./icons/zinhobanner.jpg" alt="Banner 3" />
+        </div>
+      </div>
+
+      <button class="carousel-btn prev">❮</button>
+      <button class="carousel-btn next">❯</button>
+    </section>
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Marcas disponíveis</h1>
+        <p>Logística eficiente e entrega segura para todo o país.</p>
+      </div>
+    </section>
+
+    <div class="controls">
+      <div class="filter">
+        <button data-cat="all" class="active">Todas</button>
+        <button data-cat="Nestle">Nestlé</button>
+        <button data-cat="Bauducco">Bauducco</button>
+        <button data-cat="Puri">Puri</button>
+        <button data-cat="Life">Life</button>
+        <button data-cat="Peccin">Peccin</button>
+        <button data-cat="Viscont">Viscont</button>
+        <button data-cat="Zinho">Zinho</button>
+      </div>
+      <div class="count-box">Mostrando <span id="count">0</span> marcas</div>
+    </div>
+
+    <main class="brands-grid" id="brandsGrid" aria-live="polite"></main>
+
+    <footer>
+      <div class="wrap">
+        © <span id="year"></span> OroLeite - Logística & Distribuição
+      </div>
+    </footer>
+
+    <div class="modal" id="modal">
+      <div class="inner">
+        <button id="closeModal" class="close-btn">Fechar</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+  </body>
+</html>

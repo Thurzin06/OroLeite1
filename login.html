@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — OroLeite</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="stylelogin.css" />
+    <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <img src="icons/logo.png" alt="OroLeite" />
+        <div class="subtitle">Oroleite<br />Logística & Distribuição</div>
+      </div>
+
+      <nav>
+        <a href="index.html" data-page="index">Início</a>
+        <a href="produtos.html" data-page="produtos">Produtos</a>
+        <a href="marcas.html" data-page="marcas">Marcas</a>
+        <a href="contato.html" data-page="contato">Contato</a>
+        <a
+          href="login.html"
+          id="loginLink"
+          data-page="login"
+          class="active"
+          aria-current="page"
+          >Entrar</a
+        >
+        <a href="account.html" id="accountLink" data-page="account"
+          >Minha Conta</a
+        >
+      </nav>
+
+      <div class="search">
+        <input
+          id="searchInput"
+          placeholder="Procurar marca ou produto"
+          aria-label="Busca"
+        />
+        <button id="openFilterBtn">Filtrar</button>
+      </div>
+
+      <!-- menu móvel (aparece em telas pequenas) -->
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <div id="mobileMenu" class="mobile-menu" aria-hidden="true"></div>
+    </header>
+
+    <!-- LOGIN → SIGN UP CONTAINER -->
+    <div class="login-page">
+      <div class="container" id="container">
+        <div class="form-container sign-up-container">
+          <form action="#">
+            <h1>Criar Conta</h1>
+            <div class="social-container">
+              <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social"
+                ><i class="fab fa-google-plus-g"></i
+              ></a>
+              <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>Use seu email para se resgistar</span>
+            <input type="text" placeholder="Nome" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Senha" />
+            <button>Cadastrar</button>
+          </form>
+        </div>
+
+        <div class="form-container sign-in-container">
+          <form action="#">
+            <h1>Entrar</h1>
+            <div class="social-container">
+              <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social"
+                ><i class="fab fa-google-plus-g"></i
+              ></a>
+              <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>Ou use sua conta</span>
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Senha" />
+            <a href="#">Esqueceu a senha?</a>
+            <button>Entrar</button>
+          </form>
+        </div>
+
+        <div class="overlay-container">
+          <div class="overlay">
+            <div class="overlay-panel overlay-left">
+              <h1>Bem-vindo de Volta!</h1>
+              <p>
+                Para se manter conectado conosco, faça login com suas
+                informações pessoais
+              </p>
+              <button class="ghost" id="signIn">Entrar</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+              <h1>Olá, Amigo!</h1>
+              <p>Insira seus dados pessoais e comece sua jornada conosco</p>
+              <button class="ghost" id="signUp">Cadastrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br /><br />
+    <footer>
+      <div class="wrap">
+        © <span id="year"></span> OroLeite - Logística & Distribuição
+      </div>
+    </footer>
+  </body>
+</html>
