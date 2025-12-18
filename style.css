@@ -120,12 +120,26 @@ nav a[aria-current="page"] {
   flex-wrap: nowrap; /* evita quebra de linha entre os botões */
 }
 
-/* Faz com que os dois botões ocupem o mesmo espaço */
+/* Faz com que os dois botões ocupem o mesmo espaço (meta: metade cada um) */
 .brand-card > div > * {
-  flex: 1 1 0; /* cada botão cresce igualmente */
-  min-width: 0; /* permite encolher em telas pequenas */
+  flex: 1 1 calc(50% - 8px); /* cada botão cerca de metade do espaço disponível */
+  min-width: 100px; /* garante que textos curtos não quebrem em duas linhas */
   display: inline-flex;
   justify-content: center;
+  white-space: nowrap; /* evita quebra de linha no texto */
+}
+
+/* Em telas pequenas: empilha os botões e deixa cada um full-width */
+@media (max-width: 420px) {
+  .brand-card > div {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .brand-card > div > * {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 .brand-card a,
