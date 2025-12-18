@@ -90,6 +90,9 @@ function logout() {
   } catch (e) {}
 
   try { initAuthLinks(); } catch (e) {}
+
+  // atualiza preços na UI
+  try { if (window.refreshProductPrices) window.refreshProductPrices(); } catch(e) {}
 }
 
 function currentUser() {
@@ -229,7 +232,8 @@ function initAuthLinks() {
         console.log('[auth] login successful');
         showToast('Login efetuado com sucesso. Redirecionando...', 'success');
         if (loginFeedback) loginFeedback.textContent = '';
-        // atualiza links e redireciona para a página de conta
+        // atualiza a exibição de preços e links, e redireciona para a página de conta
+        try { if (window.refreshProductPrices) window.refreshProductPrices(); } catch(e) {}
         initAuthLinks();
         setTimeout(() => { window.location.href = 'account.html'; }, 900);
 

@@ -104,6 +104,9 @@
           OroAuth.logout();
           window.location.href = 'index.html';
         });
+
+        // atualiza preços caso o usuário esteja vendo a página de produtos
+        try { if (window.refreshProductPrices) window.refreshProductPrices(); } catch (e) { }
       });
     </script>
   </body>

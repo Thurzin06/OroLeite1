@@ -63,72 +63,37 @@ const closeModal = document.getElementById("closeModal");
 // Ano automático no footer
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// Dados de exemplo para produtos
+// Dados de exemplo para produtos (mais itens por marca)
 const PRODUCTS = [
-  {
-    id: 101,
-    name: "Biscoito Integral",
-    brand: "Bauducco",
-    img: "./img/bauducco.png",
-    price: "R$ 6,50",
-    desc: "Biscoito crocante e integral, ideal para lanches.",
-  },
-  {
-    id: 102,
-    name: "Bolo de Fuba",
-    brand: "Bauducco",
-    img: "./img/bauducco.png",
-    price: "R$ 8,00",
-    desc: "Bolo pronto com sabor caseiro.",
-  },
-  {
-    id: 201,
-    name: "Achocolatado",
-    brand: "Nestle",
-    img: "./img/nestle.png",
-    price: "R$ 7,20",
-    desc: "Bebida achocolatada instantânea.",
-  },
-  {
-    id: 301,
-    name: "Água de Coco",
-    brand: "Puri",
-    img: "./img/puri.png",
-    price: "R$ 5,90",
-    desc: "Água de coco natural refrescante.",
-  },
-  {
-    id: 401,
-    name: "Suco Natural",
-    brand: "Life",
-    img: "./img/life.png",
-    price: "R$ 6,00",
-    desc: "Suco de frutas pronto, sem conservantes.",
-  },
-  {
-    id: 501,
-    name: "Chiclete Menta",
-    brand: "Peccin",
-    img: "./img/peccin.png",
-    price: "R$ 3,50",
-    desc: "Chiclete com sabor prolongado.",
-  },
-  {
-    id: 601,
-    name: "Doce Confeiteiro",
-    brand: "Viscont",
-    img: "./img/viscont.png",
-    price: "R$ 4,80",
-    desc: "Acompanhamento ideal para sobremesas.",
-  },
-  {
-    id: 701,
-    name: "Pão de Alho",
-    brand: "Zinho",
-    img: "./img/zinho.png",
-    price: "R$ 9,50",
-    desc: "Pão de alho congelado para churrasco.",
-  },
+  // Bauducco
+  { id: 101, name: "Biscoito Integral", brand: "Bauducco", img: "./img/bauducco.png", price: "R$ 6,50", desc: "Biscoito crocante e integral, ideal para lanches." },
+  { id: 102, name: "Bolo de Fubá", brand: "Bauducco", img: "./img/bauducco.png", price: "R$ 8,00", desc: "Bolo pronto com sabor caseiro." },
+  { id: 103, name: "Panettone Tradicional 500g", brand: "Bauducco", img: "./img/bauducco.png", price: "R$ 29,99", desc: "Panettone tradicional com frutas cristalizadas." },
+
+  // Nestlé
+  { id: 201, name: "Achocolatado em Pó", brand: "Nestle", img: "./img/nestle.png", price: "R$ 7,20", desc: "Bebida achocolatada instantânea." },
+  { id: 202, name: "Leite UHT 1L", brand: "Nestle", img: "./img/nestle.png", price: "R$ 5,80", desc: "Leite pasteurizado integral." },
+  { id: 203, name: "Chocolate em Barra 90g", brand: "Nestle", img: "./img/nestle.png", price: "R$ 6,90", desc: "Chocolate ao leite." },
+
+  // Puri
+  { id: 301, name: "Água de Coco 1L", brand: "Puri", img: "./img/puri.png", price: "R$ 5,90", desc: "Água de coco natural refrescante." },
+  { id: 302, name: "Água de Coco 200ml", brand: "Puri", img: "./img/puri.png", price: "R$ 3,20", desc: "Prática para levar." },
+
+  // Life
+  { id: 401, name: "Suco Natural Laranja 1L", brand: "Life", img: "./img/life.png", price: "R$ 6,00", desc: "Suco de frutas pronto, sem conservantes." },
+  { id: 402, name: "Suco 300ml", brand: "Life", img: "./img/life.png", price: "R$ 3,50", desc: "Porção individual." },
+
+  // Peccin
+  { id: 501, name: "Chiclete Menta", brand: "Peccin", img: "./img/peccin.png", price: "R$ 3,50", desc: "Chiclete com sabor prolongado." },
+  { id: 502, name: "Bala Sortida", brand: "Peccin", img: "./img/peccin.png", price: "R$ 2,80", desc: "Pacote de balas sortidas." },
+
+  // Viscont
+  { id: 601, name: "Doce Confeiteiro", brand: "Viscont", img: "./img/viscont.png", price: "R$ 4,80", desc: "Acompanhamento ideal para sobremesas." },
+  { id: 602, name: "Cobertura para Bolos", brand: "Viscont", img: "./img/viscont.png", price: "R$ 7,60", desc: "Cobertura pronta para decorar bolos." },
+
+  // Zinho
+  { id: 701, name: "Pão de Alho 400g", brand: "Zinho", img: "./img/zinho.png", price: "R$ 9,50", desc: "Pão de alho congelado para churrasco." },
+  { id: 702, name: "Pão de Queijo 300g", brand: "Zinho", img: "./img/zinho.png", price: "R$ 11,00", desc: "Salgadinho para o lanche." },
 ];
 
 // Função para renderizar as marcas
@@ -181,18 +146,29 @@ function renderProducts(list) {
     const card = document.createElement("article");
     card.className = "brand-card product-card";
 
+    // checa se o usuário está logado (seguro)
+    const isLogged = window.OroAuth && OroAuth.currentUser();
+    const priceText = isLogged ? p.price : 'Entrar para ver o preço';
+    const lockedClass = isLogged ? '' : ' locked';
+
     card.innerHTML = `
       <img loading="lazy" src="${p.img}" alt="${p.name}" />
       <h3>${p.name}</h3>
       <p class="desc">${p.desc}</p>
       <div style="display:flex;gap:8px;width:100%;justify-content:center;margin-top:auto">
         <a href="#" data-id="${p.id}" class="open-product">Detalhes</a>
-        <button class="add-cart">${p.price}</button>
+        <button class="price-btn add-cart${lockedClass}" data-id="${p.id}">${priceText}</button>
       </div>
     `;
 
     productsGrid.appendChild(card);
   });
+
+  // atualiza contadores
+  if (productCountEl) productCountEl.textContent = list.length;
+
+  // atualiza os preços caso o usuário mude de estado de login
+  refreshProductPrices();
 
   if (productCountEl) productCountEl.textContent = list.length;
 }
@@ -280,17 +256,20 @@ function openBrandModal(id) {
 // Abrir modal de produto
 function openProductModal(id) {
   const product = PRODUCTS.find((p) => p.id === id);
-  if (!product) return;
+  if (!product || !modalContent) return;
+
+  const isLogged = window.OroAuth && OroAuth.currentUser();
+  const priceHtml = isLogged ? `<p><strong>Preço:</strong> ${product.price}</p>` : `<p><strong>Preço:</strong> <em>Entre para ver o preço</em> <button class="primary" onclick="window.location.href='login.html'">Entrar</button></p>`;
 
   modalContent.innerHTML = `
     <h2>${product.name}</h2>
     <img src="${product.img}" alt="${product.name}" style="max-width:280px; display:block; margin:12px 0" />
     <p><strong>Marca:</strong> ${product.brand}</p>
-    <p><strong>Preço:</strong> ${product.price}</p>
+    ${priceHtml}
     <p>${product.desc}</p>
   `;
 
-  modal.style.display = "flex";
+  if (modal) modal.style.display = "flex";
 }
 
 // Delegação de eventos
@@ -476,3 +455,60 @@ if (track && slides.length && nextBtn && prevBtn) {
     if (mobileActive) mobileActive.classList.add('active');
   }
 })();
+
+// Atualiza exibição de preços nos cards (chame quando o estado de login mudar)
+function refreshProductPrices(){
+  try{
+    const isLogged = window.OroAuth && OroAuth.currentUser();
+    if (!productsGrid) return;
+
+    // Atualiza os botões de preço
+    const cards = productsGrid.querySelectorAll('.brand-card.product-card');
+    cards.forEach(card => {
+      const a = card.querySelector('a.open-product');
+      if (!a) return;
+      const id = Number(a.dataset.id);
+      const btn = card.querySelector('.price-btn');
+      if (!btn) return;
+      const product = PRODUCTS.find(p=>p.id === id);
+      if (!product) return;
+      if (isLogged) {
+        btn.textContent = product.price;
+        btn.classList.remove('locked');
+        btn.onclick = null;
+      } else {
+        btn.textContent = 'Entrar para ver o preço';
+        btn.classList.add('locked');
+        btn.onclick = () => { window.location.href = 'login.html'; };
+      }
+    });
+
+    // Mostra/oculta aviso geral acima da grade de produtos
+    let notice = document.querySelector('.price-notice');
+    if (!notice) {
+      notice = document.createElement('div');
+      notice.className = 'price-notice';
+      notice.setAttribute('role','status');
+    }
+
+    if (!isLogged) {
+      notice.innerHTML = '🔒 <strong>Preços visíveis apenas para usuários.</strong> <a href="login.html">Entre para ver os preços</a>';
+      // insere antes do grid se ainda não estiver presente
+      if (!productsGrid.previousElementSibling || !productsGrid.previousElementSibling.classList.contains('price-notice')) {
+        productsGrid.parentNode.insertBefore(notice, productsGrid);
+      }
+    } else {
+      // remove aviso se existir
+      if (notice && notice.parentNode) notice.parentNode.removeChild(notice);
+    }
+
+  }catch(e){ console.warn('[refreshProductPrices] error', e); }
+}
+
+// chama automaticamente após carregamento para sincronizar estado de preços
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(refreshProductPrices, 80);
+});
+
+// expõe para uso externo
+window.refreshProductPrices = refreshProductPrices;
