@@ -102,6 +102,46 @@ nav a[aria-current="page"] {
   color: #555;
 }
 
+/* Centraliza e ajusta a seção de Produtos em destaque */
+.featured-products .wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Garante que os botões/links de ação nos cards fiquem em uma única linha */
+.brand-card > div {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  justify-content: space-between; /* garante espaço para ambos os botões */
+  align-items: center;
+  margin-top: auto;
+  flex-wrap: nowrap; /* evita quebra de linha entre os botões */
+}
+
+/* Faz com que os dois botões ocupem o mesmo espaço */
+.brand-card > div > * {
+  flex: 1 1 0; /* cada botão cresce igualmente */
+  min-width: 0; /* permite encolher em telas pequenas */
+  display: inline-flex;
+  justify-content: center;
+}
+
+.brand-card a,
+.brand-card .price-btn {
+  white-space: nowrap; /* mantém em uma linha */
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 8px 12px;
+}
+
+/* Ajuste fino para o botão de preço em telas pequenas */
+.brand-card .price-btn {
+  padding: 8px 12px;
+} 
+
 /* AUTH FORMS */
 .auth-page,
 .account-page {

@@ -52,6 +52,7 @@ const BRANDS = [
 ];
 
 const grid = document.getElementById("brandsGrid");
+const featuredEl = document.getElementById("featuredProducts");
 const productsGrid = document.getElementById("productsGrid");
 const countEl = document.getElementById("count");
 const productCountEl = document.getElementById("productCount");
@@ -130,7 +131,30 @@ function renderBrands(list) {
   countEl.textContent = list.length;
 }
 
-// Função para renderizar produtos
+// Função para criar um card de produto (reutilizável)
+function createProductCard(p) {
+  const card = document.createElement("article");
+  card.className = "brand-card product-card";
+
+  // checa se o usuário está logado (seguro)
+  const isLogged = window.OroAuth && OroAuth.currentUser();
+  const priceText = isLogged ? p.price : 'Ver preço';
+  const lockedClass = isLogged ? '' : ' locked';
+
+  card.innerHTML = `
+    <img loading="lazy" src="${p.img}" alt="${p.name}" />
+    <h3>${p.name}</h3>
+    <p class="desc">${p.desc}</p>
+    <div style="display:flex;gap:8px;width:100%;justify-content:center;margin-top:auto">
+      <a href="#" data-id="${p.id}" class="open-product">Detalhes</a>
+      <button class="price-btn add-cart${lockedClass}" data-id="${p.id}">${priceText}</button>
+    </div>
+  `;
+
+  return card;
+}
+
+// Função para renderizar produtos na página de produtos normal
 function renderProducts(list) {
   if (!productsGrid) return;
   productsGrid.innerHTML = "";
@@ -143,24 +167,7 @@ function renderProducts(list) {
   }
 
   list.forEach((p) => {
-    const card = document.createElement("article");
-    card.className = "brand-card product-card";
-
-    // checa se o usuário está logado (seguro)
-    const isLogged = window.OroAuth && OroAuth.currentUser();
-    const priceText = isLogged ? p.price : 'Entrar para ver o preço';
-    const lockedClass = isLogged ? '' : ' locked';
-
-    card.innerHTML = `
-      <img loading="lazy" src="${p.img}" alt="${p.name}" />
-      <h3>${p.name}</h3>
-      <p class="desc">${p.desc}</p>
-      <div style="display:flex;gap:8px;width:100%;justify-content:center;margin-top:auto">
-        <a href="#" data-id="${p.id}" class="open-product">Detalhes</a>
-        <button class="price-btn add-cart${lockedClass}" data-id="${p.id}">${priceText}</button>
-      </div>
-    `;
-
+    const card = createProductCard(p);
     productsGrid.appendChild(card);
   });
 
@@ -175,6 +182,16 @@ function renderProducts(list) {
 
 // Inicializa com todas as marcas ou produtos conforme a página
 if (grid) renderBrands(BRANDS);
+
+// Se existir a seção de produtos em destaque, mostra os primeiros 6
+if (featuredEl) {
+  const featured = PRODUCTS.slice(0, 6);
+  featuredEl.innerHTML = "";
+  featured.forEach(p => featuredEl.appendChild(createProductCard(p)));
+  // garante que os preços sejam atualizados conforme estado de auth
+  refreshProductPrices();
+}
+
 if (productsGrid) {
   // se houver parâmetro brand, filtra por ele
   const params = new URLSearchParams(window.location.search);
@@ -338,6 +355,16 @@ if (track && slides.length && nextBtn && prevBtn) {
   slides.forEach(slide => {
     const img = slide.querySelector('img');
     if (img) img.addEventListener('load', updateSlideBackgrounds);
+
+    // se o slide estiver associado a um produto, torne-o clicável para abrir o modal
+    slide.addEventListener('click', (ev) => {
+      // evita reagir ao clique nos botões de navegação
+      if (ev.target.closest('.carousel-btn')) return;
+      const pid = Number(slide.dataset.productId);
+      if (pid) {
+        openProductModal(pid);
+      }
+    });
   });
 
   function updateCarousel() {
@@ -460,30 +487,37 @@ if (track && slides.length && nextBtn && prevBtn) {
 function refreshProductPrices(){
   try{
     const isLogged = window.OroAuth && OroAuth.currentUser();
-    if (!productsGrid) return;
 
-    // Atualiza os botões de preço
-    const cards = productsGrid.querySelectorAll('.brand-card.product-card');
-    cards.forEach(card => {
-      const a = card.querySelector('a.open-product');
-      if (!a) return;
-      const id = Number(a.dataset.id);
-      const btn = card.querySelector('.price-btn');
-      if (!btn) return;
-      const product = PRODUCTS.find(p=>p.id === id);
-      if (!product) return;
-      if (isLogged) {
-        btn.textContent = product.price;
-        btn.classList.remove('locked');
-        btn.onclick = null;
-      } else {
-        btn.textContent = 'Entrar para ver o preço';
-        btn.classList.add('locked');
-        btn.onclick = () => { window.location.href = 'login.html'; };
-      }
+    // combina grids a serem atualizadas (produtos / destaque)
+    const targets = [];
+    if (productsGrid) targets.push(productsGrid);
+    if (featuredEl) targets.push(featuredEl);
+    if (!targets.length) return;
+
+    // Atualiza os botões de preço em todas as seções
+    targets.forEach(tg => {
+      const cards = tg.querySelectorAll('.brand-card.product-card');
+      cards.forEach(card => {
+        const a = card.querySelector('a.open-product');
+        if (!a) return;
+        const id = Number(a.dataset.id);
+        const btn = card.querySelector('.price-btn');
+        if (!btn) return;
+        const product = PRODUCTS.find(p=>p.id === id);
+        if (!product) return;
+        if (isLogged) {
+          btn.textContent = product.price;
+          btn.classList.remove('locked');
+          btn.onclick = null;
+        } else {
+        btn.textContent = 'Ver preço';
+          btn.classList.add('locked');
+          btn.onclick = () => { window.location.href = 'login.html'; };
+        }
+      });
     });
 
-    // Mostra/oculta aviso geral acima da grade de produtos
+    // Mostra/oculta aviso geral acima da primeira seção de produtos encontrada
     let notice = document.querySelector('.price-notice');
     if (!notice) {
       notice = document.createElement('div');
@@ -491,11 +525,12 @@ function refreshProductPrices(){
       notice.setAttribute('role','status');
     }
 
+    const anchor = featuredEl || productsGrid;
     if (!isLogged) {
       notice.innerHTML = '🔒 <strong>Preços visíveis apenas para usuários.</strong> <a href="login.html">Entre para ver os preços</a>';
-      // insere antes do grid se ainda não estiver presente
-      if (!productsGrid.previousElementSibling || !productsGrid.previousElementSibling.classList.contains('price-notice')) {
-        productsGrid.parentNode.insertBefore(notice, productsGrid);
+      // insere antes do primeiro container de produtos se ainda não estiver presente
+      if (anchor && (!anchor.previousElementSibling || !anchor.previousElementSibling.classList.contains('price-notice'))) {
+        anchor.parentNode.insertBefore(notice, anchor);
       }
     } else {
       // remove aviso se existir
