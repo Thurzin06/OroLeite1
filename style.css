@@ -134,7 +134,7 @@ nav a[aria-current="page"] {
   align-items: center;
   gap: 8px;
   height: 40px;
-  padding: 8px 12px;
+  padding: 8px 1px;
 }
 
 /* Ajuste fino para o botão de preço em telas pequenas */
@@ -348,18 +348,21 @@ nav a[aria-current="page"] {
 }
 .brand-card a {
   margin-top: auto;
-  padding: 8px 12px;
+  padding: 8px 1px;
   border-radius: 8px;
   text-decoration: none;
   border: none;
-  color: #111;
+  color: #fff; /* texto branco */
   background: #f4b740;
   font-weight: 600;
   transition: 0.18s ease;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-}
+  justify-content: center;  font-family: inherit; /* garante mesma família */
+  font-size: 14px;      /* mesmo tamanho */
+  line-height: 1;      /* altura consistente */
+  letter-spacing: 0.2px;
+  min-height: 40px;    /* mesma altura visual */}
 .brand-card a:hover {
   background: #e09e2b;
 }
@@ -389,8 +392,13 @@ nav a[aria-current="page"] {
   white-space: nowrap;      /* mantém tudo em uma linha */
   cursor: pointer;
   background: #f4b740; /* mesma cor */
-  color: #111; /* texto escuro para contraste */
+  color: #fff; /* texto branco */
   border: none;
+  font-family: inherit; /* garante mesma família */
+  font-size: 14px;      /* mesmo tamanho */
+  line-height: 1;      /* altura consistente */
+  letter-spacing: 0.2px;
+  min-height: 40px;    /* mesma altura visual */
 }
 .price-btn:hover {
   background: #e09e2b;
@@ -398,7 +406,7 @@ nav a[aria-current="page"] {
 .price-btn.locked {
   /* mantém aparência idêntica quando bloqueado */
   background: #f4b740;
-  color: #111;
+  color: #fff;
   border: none;
 }
 .price-btn.locked:hover { opacity: 0.95; }
