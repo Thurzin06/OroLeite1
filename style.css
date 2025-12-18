@@ -271,8 +271,15 @@ nav a[aria-current="page"] {
   margin: 18px auto;
   padding: 0 24px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
+  justify-items: center; /* centraliza o conteúdo de cada célula */
+  justify-content: center; /* mantém a grade centralizada no container */
+}
+/* Limita a largura dos cards para que fiquem centralizados em cada célula */
+.brand-card {
+  width: 100%;
+  max-width: 300px;
 }
 .brand-card {
   background: #fff;
