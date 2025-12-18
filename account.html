@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minha Conta — OroLeite</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <script src="auth.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="icons/logo.png" alt="OroLeite" />
+        <div class="subtitle">Oroleite<br />Logística & Distribuição</div>
+      </div>
+
+      <nav>
+        <a href="index.html" data-page="index">Início</a>
+        <a href="produtos.html" data-page="produtos">Produtos</a>
+        <a href="marcas.html" data-page="marcas">Marcas</a>
+        <a href="contato.html" data-page="contato">Contato</a>
+        <a href="login.html" id="loginLink" data-page="login">Entrar</a>
+        <a href="account.html" id="accountLink" data-page="account">Minha Conta</a>
+      </nav>
+
+      <div class="search">
+        <input id="searchInput" placeholder="Procurar marca ou produto" aria-label="Busca" />
+        <button id="openFilterBtn">Filtrar</button>
+      </div>
+
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <div id="mobileMenu" class="mobile-menu" aria-hidden="true"></div>
+    </header>
+
+    <main class="auth-page" style="padding-top:36px; padding-bottom:40px">
+      <div class="wrap" style="max-width:900px;margin:0 auto;padding:0 24px">
+        <h1>Minha Conta</h1>
+        <div id="profileCard" class="user-box" style="margin-top:18px">
+          <div class="profile-top" style="display:flex;align-items:center;gap:16px">
+            <div id="profileAvatar" class="profile-avatar" aria-hidden="true">—</div>
+            <div>
+              <p><strong>Nome:</strong> <span id="profileName">—</span></p>
+              <p><strong>E‑mail:</strong> <span id="profileEmail">—</span></p>
+              <p><strong>Último login:</strong> <span id="profileLastLogin">—</span></p>
+              <p><strong>Entradas:</strong> <span id="profileLoginCount">0</span></p>
+            </div>
+          </div>
+          <div style="margin-top:12px">
+            <button id="logoutBtn" class="secondary">Sair</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Container para toasts também na página da conta (mostra notificações após redirecionamento) -->
+    <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <footer>
+      <div class="wrap">© <span id="year"></span> OroLeite - Logística & Distribuição</div>
+    </footer>
+
+    <script>
+      // protege a página e popula dados do usuário
+      document.addEventListener('DOMContentLoaded', () => {
+        // redireciona para login caso não haja usuário
+        if (!OroAuth || !OroAuth.currentUser()) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        // tenta obter dados atualizados da sessão; se não houver lastLogin/loginCount, busca no store
+        const sess = OroAuth.currentUser();
+        let lastLogin = sess.lastLogin;
+        let loginCount = sess.loginCount;
+
+        if (!lastLogin || typeof loginCount === 'undefined') {
+          try {
+            const users = JSON.parse(localStorage.getItem('ORO_USERS') || '[]');
+            const u = users.find(x => x.email === sess.email) || {};
+            lastLogin = lastLogin || u.lastLogin;
+            loginCount = typeof loginCount !== 'undefined' ? loginCount : (u.loginCount || 0);
+          } catch (e) {}
+        }
+
+        const user = sess || {};
+        document.getElementById('profileName').textContent = user.name || '—';
+        document.getElementById('profileEmail').textContent = user.email || '—';
+        document.getElementById('profileLoginCount').textContent = loginCount || 0;
+        document.getElementById('profileLastLogin').textContent = lastLogin ? new Date(lastLogin).toLocaleString('pt-BR') : '—';
+
+        // avatar com iniciais
+        const avatar = document.getElementById('profileAvatar');
+        const initials = (user.name || ' ')
+          .split(' ')
+          .filter(Boolean)
+          .slice(0,2)
+          .map(n => n[0].toUpperCase())
+          .join('') || '?';
+        if (avatar) avatar.textContent = initials;
+
+        const logoutBtn = document.getElementById('logoutBtn');
+        logoutBtn.addEventListener('click', () => {
+          OroAuth.logout();
+          window.location.href = 'index.html';
+        });
+      });
+    </script>
+  </body>
+</html>

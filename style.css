@@ -167,6 +167,64 @@ nav a[aria-current="page"] {
   color: #b00020;
 }
 
+/* Feedback do formulário de login */
+.form-feedback { margin-top: 8px; font-size: 13px; color: #b00020; }
+.form-feedback.success { color: #0a8a00; }
+
+/* Toaster / Pop-ups */
+#toastContainer {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1200;
+  pointer-events: none; /* permite clicar através quando não houver toasts */
+}
+.toast {
+  pointer-events: auto;
+  min-width: 260px;
+  max-width: 360px;
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  padding: 12px 14px;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 600;
+  transform-origin: right top;
+  animation: popIn 260ms ease;
+}
+.toast.success { background: linear-gradient(90deg,#0aa560,#07894a); }
+.toast.error { background: linear-gradient(90deg,#d94b4b,#c13030); }
+.toast .text { flex: 1; font-weight: 600; font-size: 14px; }
+.toast .close { background: transparent; border: none; color: rgba(255,255,255,0.9); font-size: 18px; cursor: pointer; }
+
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Perfil: avatar e resumo */
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #f4b740;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 22px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+.profile-top p { margin: 2px 0; }
+
+
 /* user box */
 .user-box {
   background: #fff;

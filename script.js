@@ -61,7 +61,7 @@ const modalContent = document.getElementById("modalContent");
 const closeModal = document.getElementById("closeModal");
 
 // Ano automático no footer
-yearEl.textContent = new Date().getFullYear();
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // Dados de exemplo para produtos
 const PRODUCTS = [
@@ -215,27 +215,31 @@ if (productsGrid) {
 
 // Busca
 const searchInput = document.getElementById("searchInput");
-searchInput.addEventListener("input", (e) => {
-  const q = e.target.value.toLowerCase().trim();
+if (searchInput) {
+  searchInput.addEventListener("input", (e) => {
+    const q = e.target.value.toLowerCase().trim();
 
-  if (grid) {
-    const filtered = BRANDS.filter(
-      (b) =>
-        b.name.toLowerCase().includes(q) || b.desc.toLowerCase().includes(q)
-    );
-    renderBrands(filtered);
-  }
+    if (grid) {
+      const filtered = BRANDS.filter(
+        (b) =>
+          b.name.toLowerCase().includes(q) || b.desc.toLowerCase().includes(q)
+      );
+      renderBrands(filtered);
+    }
 
-  if (productsGrid) {
-    const filtered = PRODUCTS.filter(
-      (p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.desc.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q)
-    );
-    renderProducts(filtered);
-  }
-});
+    if (productsGrid) {
+      const filtered = PRODUCTS.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.desc.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q)
+      );
+      renderProducts(filtered);
+    }
+  });
+} else {
+  // não há campo de busca nesta página
+} 
 
 // Filtros
 const filterButtons = document.querySelectorAll(".filter button");
@@ -314,9 +318,11 @@ window.addEventListener("click", (ev) => {
 });
 
 // Botão fechar
-closeModal.addEventListener("click", () => {
-  modal.style.display = "none";
-});
+if (closeModal) {
+  closeModal.addEventListener("click", () => {
+    if (modal) modal.style.display = "none";
+  });
+} 
 
 /* =========================
    CARROSSEL SLIDE LATERAL
