@@ -351,15 +351,17 @@ nav a[aria-current="page"] {
   padding: 8px 12px;
   border-radius: 8px;
   text-decoration: none;
-  border: 1px solid #f4b740;
-  color: #fff;
+  border: none;
+  color: #111;
   background: #f4b740;
   font-weight: 600;
   transition: 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .brand-card a:hover {
   background: #e09e2b;
-  border-color: #e09e2b;
 }
 
 /* produto: reaproveita .brand-card com pequenos ajustes */
@@ -376,21 +378,26 @@ nav a[aria-current="page"] {
   background: #f4f4f4;
 }
 
-/* botão de preço quando não logado */
+/* Botão de preço: unificado com o estilo de ação */
 .price-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 12px;
   border-radius: 8px;
-  font-weight: 700;
+  font-weight: 600; /* mesmo peso */
   white-space: nowrap;      /* mantém tudo em uma linha */
-  overflow: hidden;
-  text-overflow: ellipsis;  /* mostra '...' se for muito longo */
   cursor: pointer;
+  background: #f4b740; /* mesma cor */
+  color: #111; /* texto escuro para contraste */
+  border: none;
+}
+.price-btn:hover {
+  background: #e09e2b;
 }
 .price-btn.locked {
-  background: linear-gradient(90deg,#f4b740,#e09e2b);
+  /* mantém aparência idêntica quando bloqueado */
+  background: #f4b740;
   color: #111;
   border: none;
 }
