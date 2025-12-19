@@ -67,34 +67,146 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 // Dados de exemplo para produtos (mais itens por marca)
 const PRODUCTS = [
   // Bauducco
-  { id: 101, name: "Biscoito Integral", brand: "Bauducco", img: "./img/bauducco.png", price: "R$ 6,50", desc: "Biscoito crocante e integral, ideal para lanches." },
-  { id: 102, name: "Bolo de Fubá", brand: "Bauducco", img: "./img/bauducco.png", price: "R$ 8,00", desc: "Bolo pronto com sabor caseiro." },
-  { id: 103, name: "Panettone Tradicional 500g", brand: "Bauducco", img: "./img/bauducco.png", price: "R$ 29,99", desc: "Panettone tradicional com frutas cristalizadas." },
+  {
+    id: 101,
+    name: "Biscoito Integral",
+    brand: "Bauducco",
+    img: "./img/bauducco.png",
+    price: "R$ 6,50",
+    desc: "Biscoito crocante e integral, ideal para lanches.",
+  },
+  {
+    id: 102,
+    name: "Bolo de Fubá",
+    brand: "Bauducco",
+    img: "./img/bauducco.png",
+    price: "R$ 8,00",
+    desc: "Bolo pronto com sabor caseiro.",
+  },
+  {
+    id: 103,
+    name: "Panettone Tradicional 500g",
+    brand: "Bauducco",
+    img: "./img/bauducco.png",
+    price: "R$ 29,99",
+    desc: "Panettone tradicional com frutas cristalizadas.",
+  },
 
   // Nestlé
-  { id: 201, name: "Achocolatado em Pó", brand: "Nestle", img: "./img/nestle.png", price: "R$ 7,20", desc: "Bebida achocolatada instantânea." },
-  { id: 202, name: "Leite UHT 1L", brand: "Nestle", img: "./img/nestle.png", price: "R$ 5,80", desc: "Leite pasteurizado integral." },
-  { id: 203, name: "Chocolate em Barra 90g", brand: "Nestle", img: "./img/nestle.png", price: "R$ 6,90", desc: "Chocolate ao leite." },
+  {
+    id: 201,
+    name: "Achocolatado em Pó",
+    brand: "Nestle",
+    img: "./img/nestle.png",
+    price: "R$ 7,20",
+    desc: "Bebida achocolatada instantânea.",
+  },
+  {
+    id: 202,
+    name: "Leite UHT 1L",
+    brand: "Nestle",
+    img: "./img/nestle.png",
+    price: "R$ 5,80",
+    desc: "Leite pasteurizado integral.",
+  },
+  {
+    id: 203,
+    name: "Chocolate em Barra 90g",
+    brand: "Nestle",
+    img: "./img/nestle.png",
+    price: "R$ 6,90",
+    desc: "Chocolate ao leite.",
+  },
 
   // Puri
-  { id: 301, name: "Água de Coco 1L", brand: "Puri", img: "./img/puri.png", price: "R$ 5,90", desc: "Água de coco natural refrescante." },
-  { id: 302, name: "Água de Coco 200ml", brand: "Puri", img: "./img/puri.png", price: "R$ 3,20", desc: "Prática para levar." },
+  {
+    id: 301,
+    name: "Água de Coco 1L",
+    brand: "Puri",
+    img: "./img/puri.png",
+    price: "R$ 5,90",
+    desc: "Água de coco natural refrescante.",
+  },
+  {
+    id: 302,
+    name: "Água de Coco 200ml",
+    brand: "Puri",
+    img: "./img/puri.png",
+    price: "R$ 3,20",
+    desc: "Prática para levar.",
+  },
 
   // Life
-  { id: 401, name: "Suco Natural Laranja 1L", brand: "Life", img: "./img/life.png", price: "R$ 6,00", desc: "Suco de frutas pronto, sem conservantes." },
-  { id: 402, name: "Suco 300ml", brand: "Life", img: "./img/life.png", price: "R$ 3,50", desc: "Porção individual." },
+  {
+    id: 401,
+    name: "Suco Natural Laranja 1L",
+    brand: "Life",
+    img: "./img/life.png",
+    price: "R$ 6,00",
+    desc: "Suco de frutas pronto, sem conservantes.",
+  },
+  {
+    id: 402,
+    name: "Suco 300ml",
+    brand: "Life",
+    img: "./img/life.png",
+    price: "R$ 3,50",
+    desc: "Porção individual.",
+  },
 
   // Peccin
-  { id: 501, name: "Chiclete Menta", brand: "Peccin", img: "./img/peccin.png", price: "R$ 3,50", desc: "Chiclete com sabor prolongado." },
-  { id: 502, name: "Bala Sortida", brand: "Peccin", img: "./img/peccin.png", price: "R$ 2,80", desc: "Pacote de balas sortidas." },
+  {
+    id: 501,
+    name: "Chiclete Menta",
+    brand: "Peccin",
+    img: "./img/peccin.png",
+    price: "R$ 3,50",
+    desc: "Chiclete com sabor prolongado.",
+  },
+  {
+    id: 502,
+    name: "Bala Sortida",
+    brand: "Peccin",
+    img: "./img/peccin.png",
+    price: "R$ 2,80",
+    desc: "Pacote de balas sortidas.",
+  },
 
   // Viscont
-  { id: 601, name: "Doce Confeiteiro", brand: "Viscont", img: "./img/viscont.png", price: "R$ 4,80", desc: "Acompanhamento ideal para sobremesas." },
-  { id: 602, name: "Cobertura para Bolos", brand: "Viscont", img: "./img/viscont.png", price: "R$ 7,60", desc: "Cobertura pronta para decorar bolos." },
+  {
+    id: 601,
+    name: "Doce Confeiteiro",
+    brand: "Viscont",
+    img: "./img/viscont.png",
+    price: "R$ 4,80",
+    desc: "Acompanhamento ideal para sobremesas.",
+  },
+  {
+    id: 602,
+    name: "Cobertura para Bolos",
+    brand: "Viscont",
+    img: "./img/viscont.png",
+    price: "R$ 7,60",
+    desc: "Cobertura pronta para decorar bolos.",
+  },
 
   // Zinho
-  { id: 701, name: "Pão de Alho 400g", brand: "Zinho", img: "./img/zinho.png", price: "R$ 9,50", desc: "Pão de alho congelado para churrasco." },
-  { id: 702, name: "Pão de Queijo 300g", brand: "Zinho", img: "./img/zinho.png", price: "R$ 11,00", desc: "Salgadinho para o lanche." },
+  {
+    id: 701,
+    name: "Pão de Alho 400g",
+    brand: "Zinho",
+    img: "./img/zinho.png",
+    price: "R$ 9,50",
+    desc: "Pão de alho congelado para churrasco.",
+  },
+  {
+    id: 702,
+    name: "Pão de Queijo 300g",
+    brand: "Zinho",
+    img: "./img/zinho.png",
+    price: "R$ 11,00",
+    desc: "Salgadinho para o lanche.",
+  },
 ];
 
 // Função para renderizar as marcas
@@ -138,8 +250,8 @@ function createProductCard(p) {
 
   // checa se o usuário está logado (seguro)
   const isLogged = window.OroAuth && OroAuth.currentUser();
-  const priceText = isLogged ? p.price : 'Ver preço';
-  const lockedClass = isLogged ? '' : ' locked';
+  const priceText = isLogged ? p.price : "Ver preço";
+  const lockedClass = isLogged ? "" : " locked";
 
   card.innerHTML = `
     <img loading="lazy" src="${p.img}" alt="${p.name}" />
@@ -187,7 +299,7 @@ if (grid) renderBrands(BRANDS);
 if (featuredEl) {
   const featured = PRODUCTS.slice(0, 6);
   featuredEl.innerHTML = "";
-  featured.forEach(p => featuredEl.appendChild(createProductCard(p)));
+  featured.forEach((p) => featuredEl.appendChild(createProductCard(p)));
   // garante que os preços sejam atualizados conforme estado de auth
   refreshProductPrices();
 }
@@ -232,7 +344,7 @@ if (searchInput) {
   });
 } else {
   // não há campo de busca nesta página
-} 
+}
 
 // Filtros
 const filterButtons = document.querySelectorAll(".filter button");
@@ -276,7 +388,9 @@ function openProductModal(id) {
   if (!product || !modalContent) return;
 
   const isLogged = window.OroAuth && OroAuth.currentUser();
-  const priceHtml = isLogged ? `<p><strong>Preço:</strong> ${product.price}</p>` : `<p><strong>Preço:</strong> <em>Entre para ver o preço</em> <button class="primary" onclick="window.location.href='login.html'">Entrar</button></p>`;
+  const priceHtml = isLogged
+    ? `<p><strong>Preço:</strong> ${product.price}</p>`
+    : `<p><strong>Preço:</strong> <em>Entre para ver o preço</em> <button class="primary" onclick="window.location.href='login.html'">Entrar</button></p>`;
 
   modalContent.innerHTML = `
     <h2>${product.name}</h2>
@@ -318,7 +432,7 @@ if (closeModal) {
   closeModal.addEventListener("click", () => {
     if (modal) modal.style.display = "none";
   });
-} 
+}
 
 /* =========================
    CARROSSEL SLIDE LATERAL
@@ -335,31 +449,37 @@ const totalSlides = slides.length;
 // Protege a lógica do carrossel para páginas que não têm carrossel
 if (track && slides.length && nextBtn && prevBtn) {
   // debounce helper
-  function debounce(fn, wait) { let t; return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), wait); }; }
+  function debounce(fn, wait) {
+    let t;
+    return (...args) => {
+      clearTimeout(t);
+      t = setTimeout(() => fn(...args), wait);
+    };
+  }
 
   // atualiza o background de cada slide com a imagem escolhida pelo navegador (suporta srcset/currentSrc)
-  function updateSlideBackgrounds(){
-    slides.forEach(slide => {
-      const img = slide.querySelector('img');
+  function updateSlideBackgrounds() {
+    slides.forEach((slide) => {
+      const img = slide.querySelector("img");
       if (!img) return;
       const srcForBg = img.currentSrc || img.src;
       if (srcForBg) slide.style.backgroundImage = `url(${srcForBg})`;
-      img.style.objectFit = 'contain';
-      img.style.background = 'transparent';
+      img.style.objectFit = "contain";
+      img.style.background = "transparent";
     });
   }
 
   // roda inicialmente e em resize; também quando a imagem carrega
   updateSlideBackgrounds();
-  window.addEventListener('resize', debounce(updateSlideBackgrounds, 150));
-  slides.forEach(slide => {
-    const img = slide.querySelector('img');
-    if (img) img.addEventListener('load', updateSlideBackgrounds);
+  window.addEventListener("resize", debounce(updateSlideBackgrounds, 150));
+  slides.forEach((slide) => {
+    const img = slide.querySelector("img");
+    if (img) img.addEventListener("load", updateSlideBackgrounds);
 
     // se o slide estiver associado a um produto, torne-o clicável para abrir o modal
-    slide.addEventListener('click', (ev) => {
+    slide.addEventListener("click", (ev) => {
       // evita reagir ao clique nos botões de navegação
-      if (ev.target.closest('.carousel-btn')) return;
+      if (ev.target.closest(".carousel-btn")) return;
       const pid = Number(slide.dataset.productId);
       if (pid) {
         openProductModal(pid);
@@ -437,55 +557,58 @@ if (track && slides.length && nextBtn && prevBtn) {
 })();
 
 // Mobile menu: clona o nav para o container móvel e controla abertura/fechamento
-(function setupMobileMenu(){
-  const menuToggle = document.querySelector('.menu-toggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  const nav = document.querySelector('nav');
+(function setupMobileMenu() {
+  const menuToggle = document.querySelector(".menu-toggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const nav = document.querySelector("nav");
   if (!menuToggle || !mobileMenu || !nav) return;
 
   // clona nav e insere
   const clone = nav.cloneNode(true);
-  clone.classList.add('mobile-nav');
+  clone.classList.add("mobile-nav");
   mobileMenu.appendChild(clone);
 
   // abre/fecha ao clicar no toggle
-  menuToggle.addEventListener('click', () => {
-    const open = menuToggle.getAttribute('aria-expanded') === 'true';
-    menuToggle.setAttribute('aria-expanded', String(!open));
-    mobileMenu.classList.toggle('open', !open);
-    mobileMenu.setAttribute('aria-hidden', String(open));
+  menuToggle.addEventListener("click", () => {
+    const open = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", String(!open));
+    mobileMenu.classList.toggle("open", !open);
+    mobileMenu.setAttribute("aria-hidden", String(open));
   });
 
   // fecha ao clicar em um link dentro do menu móvel
-  mobileMenu.addEventListener('click', (ev) => {
-    const a = ev.target.closest('a');
+  mobileMenu.addEventListener("click", (ev) => {
+    const a = ev.target.closest("a");
     if (a) {
-      mobileMenu.classList.remove('open');
-      menuToggle.setAttribute('aria-expanded','false');
-      mobileMenu.setAttribute('aria-hidden','true');
+      mobileMenu.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      mobileMenu.setAttribute("aria-hidden", "true");
     }
   });
 
   // fecha ao clicar fora
-  document.addEventListener('click', (ev) => {
-    if (!mobileMenu.classList.contains('open')) return;
-    if (mobileMenu.contains(ev.target) || menuToggle.contains(ev.target)) return;
-    mobileMenu.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded','false');
-    mobileMenu.setAttribute('aria-hidden','true');
+  document.addEventListener("click", (ev) => {
+    if (!mobileMenu.classList.contains("open")) return;
+    if (mobileMenu.contains(ev.target) || menuToggle.contains(ev.target))
+      return;
+    mobileMenu.classList.remove("open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    mobileMenu.setAttribute("aria-hidden", "true");
   });
 
   // marca link ativo dentro do menu móvel
-  const active = document.querySelector('nav a.active');
+  const active = document.querySelector("nav a.active");
   if (active) {
-    const mobileActive = mobileMenu.querySelector(`a[href="${active.getAttribute('href')}"]`);
-    if (mobileActive) mobileActive.classList.add('active');
+    const mobileActive = mobileMenu.querySelector(
+      `a[href="${active.getAttribute("href")}"]`
+    );
+    if (mobileActive) mobileActive.classList.add("active");
   }
 })();
 
 // Atualiza exibição de preços nos cards (chame quando o estado de login mudar)
-function refreshProductPrices(){
-  try{
+function refreshProductPrices() {
+  try {
     const isLogged = window.OroAuth && OroAuth.currentUser();
 
     // combina grids a serem atualizadas (produtos / destaque)
@@ -495,53 +618,61 @@ function refreshProductPrices(){
     if (!targets.length) return;
 
     // Atualiza os botões de preço em todas as seções
-    targets.forEach(tg => {
-      const cards = tg.querySelectorAll('.brand-card.product-card');
-      cards.forEach(card => {
-        const a = card.querySelector('a.open-product');
+    targets.forEach((tg) => {
+      const cards = tg.querySelectorAll(".brand-card.product-card");
+      cards.forEach((card) => {
+        const a = card.querySelector("a.open-product");
         if (!a) return;
         const id = Number(a.dataset.id);
-        const btn = card.querySelector('.price-btn');
+        const btn = card.querySelector(".price-btn");
         if (!btn) return;
-        const product = PRODUCTS.find(p=>p.id === id);
+        const product = PRODUCTS.find((p) => p.id === id);
         if (!product) return;
         if (isLogged) {
           btn.textContent = product.price;
-          btn.classList.remove('locked');
+          btn.classList.remove("locked");
           btn.onclick = null;
         } else {
-        btn.textContent = 'Ver preço';
-          btn.classList.add('locked');
-          btn.onclick = () => { window.location.href = 'login.html'; };
+          btn.textContent = "Ver preço";
+          btn.classList.add("locked");
+          btn.onclick = () => {
+            window.location.href = "login.html";
+          };
         }
       });
     });
 
     // Mostra/oculta aviso geral acima da primeira seção de produtos encontrada
-    let notice = document.querySelector('.price-notice');
+    let notice = document.querySelector(".price-notice");
     if (!notice) {
-      notice = document.createElement('div');
-      notice.className = 'price-notice';
-      notice.setAttribute('role','status');
+      notice = document.createElement("div");
+      notice.className = "price-notice";
+      notice.setAttribute("role", "status");
     }
 
     const anchor = featuredEl || productsGrid;
     if (!isLogged) {
-      notice.innerHTML = '🔒 <strong>Preços visíveis apenas para usuários.</strong> <a href="login.html">Entre para ver os preços</a>';
+      notice.innerHTML =
+        '🔒 <strong>Preços visíveis apenas para usuários.</strong> <a href="login.html">Entre para ver os preços</a>';
       // insere antes do primeiro container de produtos se ainda não estiver presente
-      if (anchor && (!anchor.previousElementSibling || !anchor.previousElementSibling.classList.contains('price-notice'))) {
+      if (
+        anchor &&
+        (!anchor.previousElementSibling ||
+          !anchor.previousElementSibling.classList.contains("price-notice"))
+      ) {
         anchor.parentNode.insertBefore(notice, anchor);
       }
     } else {
       // remove aviso se existir
       if (notice && notice.parentNode) notice.parentNode.removeChild(notice);
     }
-
-  }catch(e){ console.warn('[refreshProductPrices] error', e); }
+  } catch (e) {
+    console.warn("[refreshProductPrices] error", e);
+  }
 }
 
 // chama automaticamente após carregamento para sincronizar estado de preços
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   setTimeout(refreshProductPrices, 80);
 });
 

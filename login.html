@@ -27,7 +27,9 @@
         appId: "1:653776802832:web:a2bc319c79257a3bd8a695",
         measurementId: "G-EC6FTEB7D1",
       };
-      console.info('[google-auth] window.FIREBASE_CONFIG definido a partir de login.html');
+      console.info(
+        "[google-auth] window.FIREBASE_CONFIG definido a partir de login.html"
+      );
     </script>
 
     <script src="script.js" defer></script>
@@ -87,7 +89,12 @@
           <form id="signUpForm" action="#">
             <h1>Criar Conta</h1>
             <div class="social-container">
-              <button type="button" class="google-btn" data-role="signup" aria-label="Entrar com Google">
+              <button
+                type="button"
+                class="google-btn"
+                data-role="signup"
+                aria-label="Entrar com Google"
+              >
                 <i class="fab fa-google" aria-hidden="true"></i>
                 <span class="btn-spinner" aria-hidden="true"></span>
                 <span class="google-label">Continuar com Google</span>
@@ -95,8 +102,19 @@
             </div>
             <span>Use seu email para se resgistar</span>
             <input id="signupName" type="text" placeholder="Nome" required />
-            <input id="signupEmail" type="email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Insira um e-mail válido (ex: nome@dominio.com)" />
-            <div id="signupEmailError" class="field-error" aria-live="polite"></div>
+            <input
+              id="signupEmail"
+              type="email"
+              placeholder="Email"
+              required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              title="Insira um e-mail válido (ex: nome@dominio.com)"
+            />
+            <div
+              id="signupEmailError"
+              class="field-error"
+              aria-live="polite"
+            ></div>
             <input
               id="signupPassword"
               type="password"
@@ -116,7 +134,12 @@
           <form id="signInForm" action="#">
             <h1>Entrar</h1>
             <div class="social-container">
-              <button type="button" class="google-btn" data-role="signin" aria-label="Entrar com Google">
+              <button
+                type="button"
+                class="google-btn"
+                data-role="signin"
+                aria-label="Entrar com Google"
+              >
                 <i class="fab fa-google" aria-hidden="true"></i>
                 <span class="btn-spinner" aria-hidden="true"></span>
                 <span class="google-label">Entrar com Google</span>

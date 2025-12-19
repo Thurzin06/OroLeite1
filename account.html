@@ -21,41 +21,87 @@
         <a href="marcas.html" data-page="marcas">Marcas</a>
         <a href="contato.html" data-page="contato">Contato</a>
         <a href="login.html" id="loginLink" data-page="login">Entrar</a>
-        <a href="account.html" id="accountLink" data-page="account">Minha Conta</a>
+        <a href="account.html" id="accountLink" data-page="account"
+          >Minha Conta</a
+        >
       </nav>
 
       <div class="search">
-        <input id="searchInput" placeholder="Procurar marca ou produto" aria-label="Busca" />
+        <input
+          id="searchInput"
+          placeholder="Procurar marca ou produto"
+          aria-label="Busca"
+        />
         <button id="openFilterBtn">Filtrar</button>
       </div>
 
-      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        ☰
+      </button>
       <div id="mobileMenu" class="mobile-menu" aria-hidden="true"></div>
     </header>
 
-    <main class="auth-page" style="padding-top:36px; padding-bottom:40px">
-      <div class="wrap" style="max-width:900px;margin:0 auto;padding:0 24px">
+    <main class="auth-page" style="padding-top: 36px; padding-bottom: 40px">
+      <div
+        class="wrap"
+        style="max-width: 900px; margin: 0 auto; padding: 0 24px"
+      >
         <h1>Minha Conta</h1>
-        <div id="profileCard" class="user-box" style="margin-top:18px">
-          <div class="profile-top" style="display:flex;align-items:center;gap:16px">
-            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-              <div id="profileAvatar" class="profile-avatar" aria-hidden="true">—</div>
-              <img id="profileAvatarImg" alt="Avatar" style="display:none;border-radius:50%;width:80px;height:80px;object-fit:cover;border:2px solid #eee" />
-              <div style="display:flex;gap:8px;margin-top:6px">
-                <input id="avatarFile" type="file" accept="image/*" style="display:none" />
+        <div id="profileCard" class="user-box" style="margin-top: 18px">
+          <div
+            class="profile-top"
+            style="display: flex; align-items: center; gap: 16px"
+          >
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+              "
+            >
+              <div id="profileAvatar" class="profile-avatar" aria-hidden="true">
+                —
+              </div>
+              <img
+                id="profileAvatarImg"
+                alt="Avatar"
+                style="
+                  display: none;
+                  border-radius: 50%;
+                  width: 80px;
+                  height: 80px;
+                  object-fit: cover;
+                  border: 2px solid #eee;
+                "
+              />
+              <div style="display: flex; gap: 8px; margin-top: 6px">
+                <input
+                  id="avatarFile"
+                  type="file"
+                  accept="image/*"
+                  style="display: none"
+                />
                 <button id="chooseAvatar" class="primary">Enviar foto</button>
-                <button id="useGravatar" class="secondary">Usar Gravatar</button>
+                <button id="useGravatar" class="secondary">
+                  Usar Gravatar
+                </button>
                 <button id="removeAvatar" class="secondary">Remover</button>
               </div>
             </div>
             <div>
               <p><strong>Nome:</strong> <span id="profileName">—</span></p>
               <p><strong>E‑mail:</strong> <span id="profileEmail">—</span></p>
-              <p><strong>Último login:</strong> <span id="profileLastLogin">—</span></p>
-              <p><strong>Entradas:</strong> <span id="profileLoginCount">0</span></p>
+              <p>
+                <strong>Último login:</strong>
+                <span id="profileLastLogin">—</span>
+              </p>
+              <p>
+                <strong>Entradas:</strong> <span id="profileLoginCount">0</span>
+              </p>
             </div>
           </div>
-          <div style="margin-top:12px">
+          <div style="margin-top: 12px">
             <button id="logoutBtn" class="secondary">Sair</button>
           </div>
         </div>
@@ -66,15 +112,17 @@
     <div id="toastContainer" aria-live="polite" aria-atomic="true"></div>
 
     <footer>
-      <div class="wrap">© <span id="year"></span> OroLeite - Logística & Distribuição</div>
+      <div class="wrap">
+        © <span id="year"></span> OroLeite - Logística & Distribuição
+      </div>
     </footer>
 
     <script>
       // protege a página e popula dados do usuário
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         // redireciona para login caso não haja usuário
         if (!OroAuth || !OroAuth.currentUser()) {
-          window.location.href = 'login.html';
+          window.location.href = "login.html";
           return;
         }
 
@@ -83,75 +131,92 @@
         let lastLogin = sess.lastLogin;
         let loginCount = sess.loginCount;
 
-        if (!lastLogin || typeof loginCount === 'undefined') {
+        if (!lastLogin || typeof loginCount === "undefined") {
           try {
-            const users = JSON.parse(localStorage.getItem('ORO_USERS') || '[]');
-            const u = users.find(x => x.email === sess.email) || {};
+            const users = JSON.parse(localStorage.getItem("ORO_USERS") || "[]");
+            const u = users.find((x) => x.email === sess.email) || {};
             lastLogin = lastLogin || u.lastLogin;
-            loginCount = typeof loginCount !== 'undefined' ? loginCount : (u.loginCount || 0);
+            loginCount =
+              typeof loginCount !== "undefined"
+                ? loginCount
+                : u.loginCount || 0;
           } catch (e) {}
         }
 
         const user = sess || {};
-        document.getElementById('profileName').textContent = user.name || '—';
-        document.getElementById('profileEmail').textContent = user.email || '—';
-        document.getElementById('profileLoginCount').textContent = loginCount || 0;
-        document.getElementById('profileLastLogin').textContent = lastLogin ? new Date(lastLogin).toLocaleString('pt-BR') : '—';
+        document.getElementById("profileName").textContent = user.name || "—";
+        document.getElementById("profileEmail").textContent = user.email || "—";
+        document.getElementById("profileLoginCount").textContent =
+          loginCount || 0;
+        document.getElementById("profileLastLogin").textContent = lastLogin
+          ? new Date(lastLogin).toLocaleString("pt-BR")
+          : "—";
 
         // avatar com iniciais
-        const avatar = document.getElementById('profileAvatar');
-        const initials = (user.name || ' ')
-          .split(' ')
-          .filter(Boolean)
-          .slice(0,2)
-          .map(n => n[0].toUpperCase())
-          .join('') || '?';
+        const avatar = document.getElementById("profileAvatar");
+        const initials =
+          (user.name || " ")
+            .split(" ")
+            .filter(Boolean)
+            .slice(0, 2)
+            .map((n) => n[0].toUpperCase())
+            .join("") || "?";
         if (avatar) avatar.textContent = initials;
 
-        const logoutBtn = document.getElementById('logoutBtn');
-        logoutBtn.addEventListener('click', () => {
+        const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.addEventListener("click", () => {
           OroAuth.logout();
-          window.location.href = 'index.html';
+          window.location.href = "index.html";
         });
 
         // avatar: tenta carregar imagem (custom ou gravatar)
-        const avatarImg = document.getElementById('profileAvatarImg');
-        const avatarBox = document.getElementById('profileAvatar');
-        const avatarFile = document.getElementById('avatarFile');
-        const chooseAvatar = document.getElementById('chooseAvatar');
-        const useGravatar = document.getElementById('useGravatar');
-        const removeAvatar = document.getElementById('removeAvatar');
+        const avatarImg = document.getElementById("profileAvatarImg");
+        const avatarBox = document.getElementById("profileAvatar");
+        const avatarFile = document.getElementById("avatarFile");
+        const chooseAvatar = document.getElementById("chooseAvatar");
+        const useGravatar = document.getElementById("useGravatar");
+        const removeAvatar = document.getElementById("removeAvatar");
 
-        function refreshProfileAvatar(){
-          try{
-            const users = JSON.parse(localStorage.getItem('ORO_USERS')||'[]');
-            const u = users.find(x => x.email === user.email) || {};
-            const src = u.avatar || (user.email ? (OroAuth.getAvatarFor ? OroAuth.getAvatarFor(user.email) : '') : '');
+        function refreshProfileAvatar() {
+          try {
+            const users = JSON.parse(localStorage.getItem("ORO_USERS") || "[]");
+            const u = users.find((x) => x.email === user.email) || {};
+            const src =
+              u.avatar ||
+              (user.email
+                ? OroAuth.getAvatarFor
+                  ? OroAuth.getAvatarFor(user.email)
+                  : ""
+                : "");
             if (src) {
               avatarImg.src = src;
-              avatarImg.style.display = '';
-              if (avatarBox) avatarBox.style.display = 'none';
+              avatarImg.style.display = "";
+              if (avatarBox) avatarBox.style.display = "none";
               removeAvatar.disabled = !u.avatar; // só habilita remover se houver avatar custom
             } else {
-              avatarImg.style.display = 'none';
-              if (avatarBox) avatarBox.style.display = '';
+              avatarImg.style.display = "none";
+              if (avatarBox) avatarBox.style.display = "";
               removeAvatar.disabled = true;
             }
-          }catch(e){ console.warn('[profile avatar] error', e); }
+          } catch (e) {
+            console.warn("[profile avatar] error", e);
+          }
         }
 
         // escolher arquivo
         if (chooseAvatar && avatarFile) {
-          chooseAvatar.addEventListener('click', ()=> avatarFile.click());
-          avatarFile.addEventListener('change', (ev)=>{
+          chooseAvatar.addEventListener("click", () => avatarFile.click());
+          avatarFile.addEventListener("change", (ev) => {
             const f = ev.target.files && ev.target.files[0];
             if (!f) return;
             const reader = new FileReader();
             reader.onload = () => {
               const data = reader.result;
               const ok = OroAuth.saveUserAvatar(user.email, data);
-              if (ok) { showToast('Foto salva.'); refreshProfileAvatar(); }
-              else showToast('Erro ao salvar foto.', 'error');
+              if (ok) {
+                showToast("Foto salva.");
+                refreshProfileAvatar();
+              } else showToast("Erro ao salvar foto.", "error");
             };
             reader.readAsDataURL(f);
           });
@@ -159,26 +224,34 @@
 
         // usar gravatar
         if (useGravatar) {
-          useGravatar.addEventListener('click', ()=>{
-            const g = (OroAuth.getAvatarFor && OroAuth.getAvatarFor(user.email)) || '';
-            if (!g) return showToast('Não foi possível obter gravatar.', 'error');
+          useGravatar.addEventListener("click", () => {
+            const g =
+              (OroAuth.getAvatarFor && OroAuth.getAvatarFor(user.email)) || "";
+            if (!g)
+              return showToast("Não foi possível obter gravatar.", "error");
             const ok = OroAuth.saveUserAvatar(user.email, g);
-            if (ok){ showToast('Gravatar definido como foto.'); refreshProfileAvatar(); }
-            else showToast('Erro ao definir gravatar.', 'error');
+            if (ok) {
+              showToast("Gravatar definido como foto.");
+              refreshProfileAvatar();
+            } else showToast("Erro ao definir gravatar.", "error");
           });
         }
 
         // remover avatar custom
         if (removeAvatar) {
-          removeAvatar.addEventListener('click', ()=>{
+          removeAvatar.addEventListener("click", () => {
             const ok = OroAuth.removeUserAvatar(user.email);
-            if (ok){ showToast('Foto removida.'); refreshProfileAvatar(); }
-            else showToast('Erro ao remover foto.', 'error');
+            if (ok) {
+              showToast("Foto removida.");
+              refreshProfileAvatar();
+            } else showToast("Erro ao remover foto.", "error");
           });
         }
 
         // atualiza preços caso o usuário esteja vendo a página de produtos
-        try { if (window.refreshProductPrices) window.refreshProductPrices(); } catch (e) { }
+        try {
+          if (window.refreshProductPrices) window.refreshProductPrices();
+        } catch (e) {}
 
         // inicializa avatar
         refreshProfileAvatar();
