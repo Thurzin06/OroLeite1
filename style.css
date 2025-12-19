@@ -161,6 +161,33 @@ nav a[aria-current="page"] {
 .account-page {
   padding: 36px 24px;
 }
+
+
+
+/* Avatar do perfil */
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f4f4f4;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  border: 2px solid #fff;
+}
+
+/* Avatar pequeno no header */
+.header-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
 .auth-box {
   max-width: 520px;
   margin: 24px auto;

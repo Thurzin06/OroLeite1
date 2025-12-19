@@ -38,7 +38,16 @@
         <h1>Minha Conta</h1>
         <div id="profileCard" class="user-box" style="margin-top:18px">
           <div class="profile-top" style="display:flex;align-items:center;gap:16px">
-            <div id="profileAvatar" class="profile-avatar" aria-hidden="true">—</div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div id="profileAvatar" class="profile-avatar" aria-hidden="true">—</div>
+              <img id="profileAvatarImg" alt="Avatar" style="display:none;border-radius:50%;width:80px;height:80px;object-fit:cover;border:2px solid #eee" />
+              <div style="display:flex;gap:8px;margin-top:6px">
+                <input id="avatarFile" type="file" accept="image/*" style="display:none" />
+                <button id="chooseAvatar" class="primary">Enviar foto</button>
+                <button id="useGravatar" class="secondary">Usar Gravatar</button>
+                <button id="removeAvatar" class="secondary">Remover</button>
+              </div>
+            </div>
             <div>
               <p><strong>Nome:</strong> <span id="profileName">—</span></p>
               <p><strong>E‑mail:</strong> <span id="profileEmail">—</span></p>
@@ -105,8 +114,74 @@
           window.location.href = 'index.html';
         });
 
+        // avatar: tenta carregar imagem (custom ou gravatar)
+        const avatarImg = document.getElementById('profileAvatarImg');
+        const avatarBox = document.getElementById('profileAvatar');
+        const avatarFile = document.getElementById('avatarFile');
+        const chooseAvatar = document.getElementById('chooseAvatar');
+        const useGravatar = document.getElementById('useGravatar');
+        const removeAvatar = document.getElementById('removeAvatar');
+
+        function refreshProfileAvatar(){
+          try{
+            const users = JSON.parse(localStorage.getItem('ORO_USERS')||'[]');
+            const u = users.find(x => x.email === user.email) || {};
+            const src = u.avatar || (user.email ? (OroAuth.getAvatarFor ? OroAuth.getAvatarFor(user.email) : '') : '');
+            if (src) {
+              avatarImg.src = src;
+              avatarImg.style.display = '';
+              if (avatarBox) avatarBox.style.display = 'none';
+              removeAvatar.disabled = !u.avatar; // só habilita remover se houver avatar custom
+            } else {
+              avatarImg.style.display = 'none';
+              if (avatarBox) avatarBox.style.display = '';
+              removeAvatar.disabled = true;
+            }
+          }catch(e){ console.warn('[profile avatar] error', e); }
+        }
+
+        // escolher arquivo
+        if (chooseAvatar && avatarFile) {
+          chooseAvatar.addEventListener('click', ()=> avatarFile.click());
+          avatarFile.addEventListener('change', (ev)=>{
+            const f = ev.target.files && ev.target.files[0];
+            if (!f) return;
+            const reader = new FileReader();
+            reader.onload = () => {
+              const data = reader.result;
+              const ok = OroAuth.saveUserAvatar(user.email, data);
+              if (ok) { showToast('Foto salva.'); refreshProfileAvatar(); }
+              else showToast('Erro ao salvar foto.', 'error');
+            };
+            reader.readAsDataURL(f);
+          });
+        }
+
+        // usar gravatar
+        if (useGravatar) {
+          useGravatar.addEventListener('click', ()=>{
+            const g = (OroAuth.getAvatarFor && OroAuth.getAvatarFor(user.email)) || '';
+            if (!g) return showToast('Não foi possível obter gravatar.', 'error');
+            const ok = OroAuth.saveUserAvatar(user.email, g);
+            if (ok){ showToast('Gravatar definido como foto.'); refreshProfileAvatar(); }
+            else showToast('Erro ao definir gravatar.', 'error');
+          });
+        }
+
+        // remover avatar custom
+        if (removeAvatar) {
+          removeAvatar.addEventListener('click', ()=>{
+            const ok = OroAuth.removeUserAvatar(user.email);
+            if (ok){ showToast('Foto removida.'); refreshProfileAvatar(); }
+            else showToast('Erro ao remover foto.', 'error');
+          });
+        }
+
         // atualiza preços caso o usuário esteja vendo a página de produtos
         try { if (window.refreshProductPrices) window.refreshProductPrices(); } catch (e) { }
+
+        // inicializa avatar
+        refreshProfileAvatar();
       });
     </script>
   </body>
