@@ -329,6 +329,37 @@ function initAuthLinks() {
   const signupFeedback = document.getElementById('signupFeedback');
   const signupBtn = document.getElementById('signupBtn');
   if (signUpForm) {
+    // Validação em tempo real do e-mail de cadastro
+    const signupEmailInput = document.getElementById('signupEmail');
+    const signupEmailError = document.getElementById('signupEmailError');
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validateSignupEmail(){
+      const val = (signupEmailInput||{value:''}).value.trim();
+      if (!val) {
+        if (signupEmailError) signupEmailError.textContent = '';
+        if (signupBtn) signupBtn.disabled = true;
+        if (signupEmailInput) signupEmailInput.classList.remove('invalid');
+        return false;
+      }
+      if (!emailRe.test(val)) {
+        if (signupEmailError) signupEmailError.textContent = 'E-mail inválido';
+        if (signupBtn) signupBtn.disabled = true;
+        if (signupEmailInput) signupEmailInput.classList.add('invalid');
+        return false;
+      }
+      if (signupEmailError) signupEmailError.textContent = '';
+      if (signupBtn) signupBtn.disabled = false;
+      if (signupEmailInput) signupEmailInput.classList.remove('invalid');
+      return true;
+    }
+
+    if (signupEmailInput){
+      signupEmailInput.addEventListener('input', validateSignupEmail);
+      // checa no carregamento para ajustar estado inicial
+      validateSignupEmail();
+    }
+
     signUpForm.addEventListener('submit', (ev) => {
       ev.preventDefault();
       const name = (document.getElementById('signupName')||{value:''}).value.trim();
@@ -336,12 +367,12 @@ function initAuthLinks() {
       const password = (document.getElementById('signupPassword')||{value:''}).value;
 
       // validações básicas
-      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRe.test(email)) {
+      if (!validateSignupEmail()) {
         if (signupFeedback) signupFeedback.textContent = 'Insira um e-mail válido.';
         showToast('Digite um e-mail válido para se cadastrar.', 'error');
         return;
       }
+
       if (!password || password.length < 4) {
         if (signupFeedback) signupFeedback.textContent = 'Senha muito curta.';
         showToast('Senha muito curta. Use 4+ caracteres', 'error');
@@ -431,13 +462,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Configura o botão de login com Google (usa Firebase Auth quando configurado)
 function setupGoogleSignIn(){
-  const btn = document.getElementById('googleSignIn');
-  const socialBtns = document.querySelectorAll('.social');
+  const googleButtons = Array.from(document.querySelectorAll('.google-btn')) || [];
+
+  function setLoading(state){
+    googleButtons.forEach(b=>{
+      if (state){
+        b.classList.add('loading');
+        b.disabled = true;
+        b.setAttribute('aria-busy','true');
+      } else {
+        b.classList.remove('loading');
+        b.disabled = false;
+        b.removeAttribute('aria-busy');
+      }
+    });
+  }
 
   async function doGoogleSignIn(ev){
     if (ev && ev.preventDefault) ev.preventDefault();
 
+    // mostra carregamento
+    setLoading(true);
+
     if (!window.firebase || !window.FIREBASE_CONFIG) {
+      setLoading(false);
       showToast('Firebase não está configurado. Cole o config em login.html', 'error');
       return;
     }
@@ -491,6 +539,9 @@ function setupGoogleSignIn(){
       } else {
         showToast('Erro no login com Google: ' + (err.message || err.code || ''), 'error');
       }
+    } finally {
+      // garante que o botão volte ao estado normal
+      setLoading(false);
     }
   }
 
@@ -504,20 +555,14 @@ function setupGoogleSignIn(){
     console.info('[google-auth] Firebase configurado. Pronto para Google sign-in.');
   }
 
-  if (btn) btn.addEventListener('click', doGoogleSignIn);
-
-  // liga também os ícones sociais que representam o Google
-  if (socialBtns && socialBtns.length) {
-    socialBtns.forEach(s => {
-      // detecta ícone Google dentro do botão
-      if (s.querySelector('.fa-google-plus-g') || s.querySelector('.fa-google')){
-        s.style.cursor = 'pointer';
-        s.setAttribute('aria-label','Entrar com Google');
-        s.addEventListener('click', (ev)=>{
-          console.log('[google-auth] social icon clicked');
-          doGoogleSignIn(ev);
-        });
-      }
+  // acopla todos os botões do Google
+  if (googleButtons && googleButtons.length) {
+    googleButtons.forEach(b=>{
+      b.style.cursor = 'pointer';
+      b.addEventListener('click', (ev)=>{
+        console.log('[google-auth] google button clicked', b.dataset && b.dataset.role);
+        doGoogleSignIn(ev);
+      });
     });
   }
 }
