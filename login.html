@@ -8,18 +8,26 @@
     <link rel="stylesheet" href="stylelogin.css" />
 
     <!-- Firebase SDKs (adicione sua configuração abaixo) -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js" defer></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"
+      defer
+    ></script>
     <script>
-      // Cole sua configuração do Firebase aqui (substitua os valores):
-      // window.FIREBASE_CONFIG = {
-      //   apiKey: "YOUR_API_KEY",
-      //   authDomain: "YOUR_PROJECT.firebaseapp.com",
-      //   projectId: "YOUR_PROJECT_ID",
-      //   storageBucket: "YOUR_PROJECT.appspot.com",
-      //   messagingSenderId: "...",
-      //   appId: "..."
-      // };
+      // configuração gerada no Firebase Console — copiamos para a propriedade global que o `auth.js` verifica
+      window.FIREBASE_CONFIG = {
+        apiKey: "AIzaSyATPFjWAwhCurTmk2BP0hk9fObtGvpO7q4",
+        authDomain: "login-6b7a2.firebaseapp.com",
+        projectId: "login-6b7a2",
+        storageBucket: "login-6b7a2.firebasestorage.app",
+        messagingSenderId: "653776802832",
+        appId: "1:653776802832:web:a2bc319c79257a3bd8a695",
+        measurementId: "G-EC6FTEB7D1",
+      };
+      console.info('[google-auth] window.FIREBASE_CONFIG definido a partir de login.html');
     </script>
 
     <script src="script.js" defer></script>
@@ -66,7 +74,9 @@
       </div>
 
       <!-- menu móvel (aparece em telas pequenas) -->
-      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">
+        ☰
+      </button>
       <div id="mobileMenu" class="mobile-menu" aria-hidden="true"></div>
     </header>
 
@@ -86,8 +96,17 @@
             <span>Use seu email para se resgistar</span>
             <input id="signupName" type="text" placeholder="Nome" required />
             <input id="signupEmail" type="email" placeholder="Email" required />
-            <input id="signupPassword" type="password" placeholder="Senha" required />
-            <div class="form-feedback" id="signupFeedback" aria-live="polite"></div>
+            <input
+              id="signupPassword"
+              type="password"
+              placeholder="Senha"
+              required
+            />
+            <div
+              class="form-feedback"
+              id="signupFeedback"
+              aria-live="polite"
+            ></div>
             <button id="signupBtn" type="submit">Cadastrar</button>
           </form>
         </div>
@@ -102,11 +121,21 @@
               ></a>
               <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
             </div>
+            <div id="googleHint" class="form-hint" style="margin-top:8px;font-size:13px;color:#666">Clique no ícone do Google para entrar.</div>
             <span>Ou use sua conta</span>
             <input id="signinEmail" type="email" placeholder="Email" required />
-            <input id="signinPassword" type="password" placeholder="Senha" required />
+            <input
+              id="signinPassword"
+              type="password"
+              placeholder="Senha"
+              required
+            />
             <a href="#">Esqueceu a senha?</a>
-            <div class="form-feedback" id="loginFeedback" aria-live="polite"></div>
+            <div
+              class="form-feedback"
+              id="loginFeedback"
+              aria-live="polite"
+            ></div>
             <button id="signinBtn" type="submit">Entrar</button>
           </form>
         </div>

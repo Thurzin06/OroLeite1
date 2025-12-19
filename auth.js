@@ -479,8 +479,29 @@ function setupGoogleSignIn(){
 
     } catch (err) {
       console.error('[google-auth] error', err);
-      showToast('Erro no login com Google: ' + (err.message || err.code || ''), 'error');
+      // Tratamento amigável para domínio não autorizado (auth/unauthorized-domain)
+      if (err && err.code === 'auth/unauthorized-domain') {
+        const detected = location.hostname || location.origin || 'seu domínio';
+        console.warn('[google-auth] origem detectada:', location.origin, 'hostname:', location.hostname);
+        showToast(
+          'Este domínio não está autorizado no Firebase. Vá em Firebase Console → Authentication → Authorized domains e adicione: ' + detected,
+          'error',
+          9000
+        );
+      } else {
+        showToast('Erro no login com Google: ' + (err.message || err.code || ''), 'error');
+      }
     }
+  }
+
+  const hintEl = document.getElementById('googleHint');
+  // atualiza hint conforme disponibilidade
+  if (!window.firebase || !window.FIREBASE_CONFIG) {
+    if (hintEl) hintEl.textContent = 'Google sign-in não configurado. Cole o config do Firebase em login.html.';
+    console.warn('[google-auth] Firebase não configurado (window.FIREBASE_CONFIG ausente)');
+  } else {
+    if (hintEl) hintEl.textContent = 'Clique no ícone do Google para entrar.';
+    console.info('[google-auth] Firebase configurado. Pronto para Google sign-in.');
   }
 
   if (btn) btn.addEventListener('click', doGoogleSignIn);
@@ -492,7 +513,10 @@ function setupGoogleSignIn(){
       if (s.querySelector('.fa-google-plus-g') || s.querySelector('.fa-google')){
         s.style.cursor = 'pointer';
         s.setAttribute('aria-label','Entrar com Google');
-        s.addEventListener('click', doGoogleSignIn);
+        s.addEventListener('click', (ev)=>{
+          console.log('[google-auth] social icon clicked');
+          doGoogleSignIn(ev);
+        });
       }
     });
   }
