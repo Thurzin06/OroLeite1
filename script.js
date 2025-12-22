@@ -376,7 +376,7 @@ function openBrandModal(id) {
     <h2>${brand.name}</h2>
     <img src="${brand.img}" alt="${brand.name}" style="max-width:280px; display:block; margin:12px 0" />
     <p>${brand.desc}</p>
-    <p><small>Conteúdo ilustrativo — substitua com produtos reais.</small></p>
+    // <p><small>Conteúdo ilustrativo — substitua com produtos reais.</small></p>
   `;
 
   modal.style.display = "flex";
