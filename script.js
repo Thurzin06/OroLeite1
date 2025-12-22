@@ -681,23 +681,14 @@ window.refreshProductPrices = refreshProductPrices;
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const waBtn = document.getElementById("waFloatBtn");
-  const waModal = document.getElementById("waModal");
-  const waClose = document.getElementById("waCloseBtn");
+  const btn = document.getElementById("waFloatBtn");
+  const modal = document.getElementById("waModal");
+  const close = document.getElementById("waCloseBtn");
 
-  if (!waBtn || !waModal || !waClose) return;
+  btn.onclick = () => modal.style.display = "flex";
+  close.onclick = () => modal.style.display = "none";
 
-  waBtn.addEventListener("click", () => {
-    waModal.style.display = "flex";
-  });
-
-  waClose.addEventListener("click", () => {
-    waModal.style.display = "none";
-  });
-
-  waModal.addEventListener("click", (e) => {
-    if (e.target === waModal) {
-      waModal.style.display = "none";
-    }
-  });
+  modal.onclick = (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  };
 });

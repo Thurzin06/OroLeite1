@@ -920,71 +920,92 @@ button:focus {
     display: block;
   }
 }
-/* WhatsApp Floating Button */
-.wa-float {
+/* ===============================
+   WHATSAPP — ISOLADO E BLINDADO
+================================ */
+
+/* Botão flutuante */
+#waFloatBtn {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: #25d366;
+  bottom: 32px;
+  right: 32px;
+  width: 72px;      
+  height: 72px;     
+  background: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 9999;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 99999;
+  box-shadow: 0 8px 20px rgba(0,0,0,.35);
 }
 
-.wa-float img {
-  width: 34px;
+#waFloatBtn img {
+  width: 100px !important;   
+  height: 100px !important;
 }
 
-/* WhatsApp Modal */
-.wa-modal {
+
+/* Overlay */
+#waModal {
+  position: fixed !important;
+  inset: 0 !important;
   display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 10000;
+  background: rgba(0,0,0,0.55);
+  z-index: 100000;
   align-items: center;
   justify-content: center;
 }
 
-.wa-modal-box {
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
+/* Caixa do modal */
+#waModal .wa-modal-box {
+  all: unset; /* RESETA TODO CSS GLOBAL */
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  width: 320px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
   text-align: center;
-  width: 300px;
   position: relative;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.wa-modal-box p {
+/* Texto */
+#waModal .wa-modal-box p {
+  all: unset;
+  display: block;
   font-size: 18px;
   margin-bottom: 20px;
+  color: #000;
 }
 
-.wa-action {
+/* Botão WhatsApp */
+#waModal .wa-action {
+  all: unset;
+  display: inline-block;
   background: #25d366;
   color: #fff;
-  padding: 12px 18px;
-  border-radius: 5px;
-  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 6px;
   font-weight: bold;
+  cursor: pointer;
 }
 
-.wa-action:hover {
-  background: #1ebc59;
-}
-
-.wa-close {
+/* Botão fechar */
+#waModal .wa-close {
+  all: unset;
   position: absolute;
-  top: 8px;
+  top: 10px;
   right: 12px;
-  background: none;
-  border: none;
-  font-size: 22px;
+  width: 28px;
+  height: 28px;
+  background: #ff9800;
+  border-radius: 50%;
+  color: #000;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
