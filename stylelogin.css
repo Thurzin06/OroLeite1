@@ -48,9 +48,11 @@ a {
 }
 
 button {
-  background-color: #f4b740;
+  background-color: #ff9100;
   border-color: #f4b740;
-  color: #fff;
+  color: #000000;
+    border: 1px solid #000000;
+
 }
 
 button:hover {
