@@ -920,3 +920,71 @@ button:focus {
     display: block;
   }
 }
+/* WhatsApp Floating Button */
+.wa-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.wa-float img {
+  width: 34px;
+}
+
+/* WhatsApp Modal */
+.wa-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+}
+
+.wa-modal-box {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  position: relative;
+}
+
+.wa-modal-box p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.wa-action {
+  background: #25d366;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.wa-action:hover {
+  background: #1ebc59;
+}
+
+.wa-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}

@@ -678,3 +678,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // expõe para uso externo
 window.refreshProductPrices = refreshProductPrices;
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const waBtn = document.getElementById("waFloatBtn");
+  const waModal = document.getElementById("waModal");
+  const waClose = document.getElementById("waCloseBtn");
+
+  if (!waBtn || !waModal || !waClose) return;
+
+  waBtn.addEventListener("click", () => {
+    waModal.style.display = "flex";
+  });
+
+  waClose.addEventListener("click", () => {
+    waModal.style.display = "none";
+  });
+
+  waModal.addEventListener("click", (e) => {
+    if (e.target === waModal) {
+      waModal.style.display = "none";
+    }
+  });
+});
